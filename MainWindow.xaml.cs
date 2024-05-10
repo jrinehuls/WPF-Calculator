@@ -17,21 +17,17 @@ namespace WpfCalculator
     public partial class MainWindow : Window
     {
         double lastNumber, result;
+        Operation operation;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            equalsButton.Click += EqualsButton_Click;
             clearButton.Click += ClearButton_Click;
             negateButton.Click += NegateButton_Click;
             percentButton.Click += PercentButton_Click;
-
-        }
-
-        private void EqualsButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            pointButton.Click += PointButton_Click;
+            equalsButton.Click += EqualsButton_Click;
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -59,30 +55,87 @@ namespace WpfCalculator
             }
         }
 
+        private void PointButton_Click(object sender, RoutedEventArgs e)
+        {
+            string value = resultLabel.Content.ToString()!;
+            if (!value.Contains('.'))
+            {
+                resultLabel.Content = value + ".";
+            }
+
+        }
+
+        private void EqualsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (double.TryParse(resultLabel.Content.ToString(), out double newNumber))
+            {
+                Console.WriteLine(lastNumber);
+                Console.WriteLine(newNumber);
+                switch (operation)
+                {
+                    case Operation.Add:
+                        result = lastNumber + newNumber;
+                        break;
+                    case Operation.Subtract:
+                        result = lastNumber - newNumber;
+                        break;
+                    case Operation.Multiply:
+                        result = lastNumber * newNumber;
+                        break;
+                    case Operation.Divide:
+                        if (newNumber != 0)
+                        {
+                            result = lastNumber / newNumber;
+                        }
+                        else
+                        {
+                            result = lastNumber;
+                        }
+                        break;
+                    default: break;
+                }
+                resultLabel.Content = result.ToString();
+            }
+
+        }
+
+        private void OperationButton_Click(object sender, RoutedEventArgs e)
+        {
+            string value = resultLabel.Content.ToString()!;
+            if (double.TryParse(value, out lastNumber))
+            {
+                resultLabel.Content = "0";
+            }
+            if (sender.Equals(addButton)) operation = Operation.Add;
+            if (sender.Equals(subtractButton)) operation = Operation.Subtract;
+            if (sender.Equals(multiplyButton)) operation = Operation.Multiply;
+            if (sender.Equals(divideButton)) operation = Operation.Divide;
+
+        }
+
         private void NumberButton_Click(object sender, RoutedEventArgs e)
         {
-            string input;
-
-            if (sender.Equals(zeroButton)) input = "0";
-            else if (sender.Equals(oneButton)) input = "1";
-            else if (sender.Equals(twoButton)) input = "2";
-            else if (sender.Equals(threeButton)) input = "3";
-            else if (sender.Equals(fourButton)) input = "4";
-            else if (sender.Equals(fiveButton)) input = "5";
-            else if (sender.Equals(sixButton)) input = "6";
-            else if (sender.Equals(sevenButton)) input = "7";
-            else if (sender.Equals(eightButton)) input = "8";
-            else if (sender.Equals(nineButton)) input = "9";
-            else return;
+            string input = ((Button)sender).Content.ToString()!;
 
             if (resultLabel.Content.ToString()!.Equals("0"))
             {
                 resultLabel.Content = input;
             }
-            else {
+            else
+            {
                 resultLabel.Content += input;
             }
+
         }
 
+    }
+
+    public enum Operation
+    {
+        Add,
+        Subtract,
+        Multiply,
+        Divide
     }
 }
