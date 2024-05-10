@@ -33,6 +33,8 @@ namespace WpfCalculator
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             resultLabel.Content = "0";
+            result = 0;
+            lastNumber = 0;
         }
 
         private void NegateButton_Click(object sender, RoutedEventArgs e)
@@ -48,9 +50,9 @@ namespace WpfCalculator
         private void PercentButton_Click(object sender, RoutedEventArgs e)
         {
             string value = resultLabel.Content.ToString()!;
-            if (double.TryParse(value, out lastNumber) && lastNumber != 0)
+            if (double.TryParse(value, out double currentNumber))
             {
-                result = lastNumber / 100.0;
+                result = lastNumber * currentNumber / 100.0;
                 resultLabel.Content = result.ToString();
             }
         }
@@ -68,28 +70,27 @@ namespace WpfCalculator
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (double.TryParse(resultLabel.Content.ToString(), out double newNumber))
+            if (double.TryParse(resultLabel.Content.ToString(), out double currentNumber))
             {
-                Console.WriteLine(lastNumber);
-                Console.WriteLine(newNumber);
                 switch (operation)
                 {
                     case Operation.Add:
-                        result = lastNumber + newNumber;
+                        result = lastNumber + currentNumber;
                         break;
                     case Operation.Subtract:
-                        result = lastNumber - newNumber;
+                        result = lastNumber - currentNumber;
                         break;
                     case Operation.Multiply:
-                        result = lastNumber * newNumber;
+                        result = lastNumber * currentNumber;
                         break;
                     case Operation.Divide:
-                        if (newNumber != 0)
+                        if (currentNumber != 0)
                         {
-                            result = lastNumber / newNumber;
+                            result = lastNumber / currentNumber;
                         }
                         else
                         {
+                            MessageBox.Show("Cannot divide by 0", "DivideByZeroException", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             result = lastNumber;
                         }
                         break;
