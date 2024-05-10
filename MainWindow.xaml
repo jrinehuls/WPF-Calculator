@@ -5,14 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Calculator" Height="525" Width="350"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <StackPanel VerticalAlignment="Center" Margin="150,0">
-            <Label Content="Result" HorizontalContentAlignment="Center"/>
-            <TextBox Text="0" HorizontalContentAlignment="Center"/>
-            <TextBox Text="0" HorizontalContentAlignment="Center"/>
-            <Button Content="Calculate" Background="Azure"/>
-        </StackPanel>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="0" Grid.ColumnSpan="4"
+               HorizontalContentAlignment="Right"
+               VerticalContentAlignment="Bottom"
+               FontSize="60"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="AC" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="+/-" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="%" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="/" Margin="5"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Content="7" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="8" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="9" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="3" Content="*" Margin="5"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Content="4" Margin="5"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="5" Margin="5"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="6" Margin="5"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="-" Margin="5"/>
+
+        <Button Grid.Row="4" Grid.Column="0" Content="1" Margin="5"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="2" Margin="5"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="3" Margin="5"/>
+        <Button Grid.Row="4" Grid.Column="3" Content="+" Margin="5"/>
+
+        <Button Grid.Row="5" Grid.Column="0" Content="0" Margin="5"
+                Grid.ColumnSpan="2"/>
+        <Button Grid.Row="5" Grid.Column="2" Content="." Margin="5"/>
+        <Button Grid.Row="5" Grid.Column="3" Content="=" Margin="5"/>
     </Grid>
 </Window>
